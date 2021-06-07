@@ -1,0 +1,51 @@
+<!DOCTYPE html >
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <title>MyTodo</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<body>
+        <div class="container border border-primary my-4 py-3">
+            <div class="container"><h1 class="text-center"> Welcome to MyToDo</h1> </div>
+
+            <div class="container">
+                      <form action="/new" th:object="${Task}" method="post" >
+                          <label >Title</label>
+                          <input class="form-control form-control-lg" type="text" name="tTitle" th:field="*{tTitle}" required >
+                          <br>
+                           <label >Description</label>
+                          <input class="form-control form-control-sm" type="text" name="tDescription" th:field="*{tDescription}" >
+                          <br>
+                         <div class="text-center">
+                             <input class="btn btn-primary" type="submit" value="Add">
+                         </div>
+                      </form>
+            </div>
+        </div>
+
+        <br>
+
+
+           <div class="container">
+
+               <table class="table table-bordered">
+                    <tbody>
+                         <tr  th:each="task,itr:${Tasks}">
+
+                            <td th:text="${itr.index+1}" ></td>
+                            <td th:text="${task.tTitle}"></td>
+                            <td th:text="${task.tDescription}"></td>
+
+                             <td>
+                                <form th:action="@{'/delete/'+${task.tId}}"  method="post"  >
+                                     <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                                </form>
+                             </td>
+
+                        </tr>
+                    </tbody>
+               </table>
+           </div>
+</body>
+</html>
